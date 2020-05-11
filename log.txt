@@ -1,0 +1,7 @@
+fs.appendFile('log.txt', 'URL:' + addr + '\nTimestamp:' + newDate() + '\n\n', (err) => {
+  if (err) {
+    console.log(err);
+  }else {
+    console.log('Added to log.');
+  }
+});
