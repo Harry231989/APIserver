@@ -1,7 +1,13 @@
-fs.appendFile('log.txt', 'URL:' + addr + '\nTimestamp:' + newDate() + '\n\n', (err) => {
-  if (err) {
-    console.log(err);
-  }else {
-    console.log('Added to log.');
-  }
-});
+
+URL: /
+Timestamp: Fri May 15 2020 14:23:19 GMT-0700 (Pacific Daylight Time)
+
+URL: /
+Timestamp: Fri May 15 2020 14:23:22 GMT-0700 (Pacific Daylight Time)
+
+URL: /documentation
+Timestamp: Fri May 15 2020 14:23:30 GMT-0700 (Pacific Daylight Time)
+
+URL: /contact
+Timestamp: Fri May 15 2020 14:24:46 GMT-0700 (Pacific Daylight Time)
+
