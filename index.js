@@ -5,6 +5,57 @@ fs = require('fs'),
 url = require('url');
 var  server = http.createServer(function(request, response){
 
+ let topMovies = [
+   {
+     title: 'The Lord of the Ring',
+     author:J.R.R Tolkien
+   },
+   {
+     title:'Breaking Bad',
+     author:Vince Gilligan
+   },
+   {
+     title:'Terminator 2 Judgment Day',
+     author:James Cameron
+   },
+   {
+     title:'Apocalypto',
+     author:Mel Gibson
+   },
+   {
+     title:'Training Day',
+     author:Richard Lindheim
+   },
+   {
+     title:'Gladiator',
+     author:David Franzoni
+   },
+   {
+     title:'300 Spartans',
+     author:Ugo Liberatore
+   },
+   {
+     title:'The Shawshank Redemption',
+     author:Stephen King
+   },
+   {
+     title:'The Dark Knight',
+     author:Emma Thomas
+   },
+   {
+     title:'Avatar',
+     author:James Cameron
+   }
+ ];
+
+ app.get('/movies',(req,res) =>{
+   res.json(topmovies);
+ });
+
+ app.get('/', (req, res) => {
+   res.send('Top 10 Movies!');
+ });
+
   let addr = request.url,
      q = url.parse(addr, true),
      filePath = '';
