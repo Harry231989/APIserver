@@ -8,7 +8,7 @@ var  server = http.createServer(function(request, response){
  let topMovies = [
    {
      title: 'The Lord of the Ring',
-     author:J.R.R Tolkien
+     author:J Tolkien
    },
    {
      title:'Breaking Bad',
