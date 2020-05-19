@@ -1,79 +1,79 @@
-const express = require('express');
+const express = require('express'),
+morgan = require('morgan');
+const bodyParser = require('body-parser'),
+  methodOverride = require('method-override');
 const app = express();
-const http = require('http');
-fs = require('fs'),
-url = require('url');
-var  server = http.createServer(function(request, response){
 
- let topMovies = [
+
+ let topMovies  = [
    {
      title: 'The Lord of the Ring',
-     author:J Tolkien
+     author:'J Tolkien'
    },
    {
      title:'Breaking Bad',
-     author:Vince Gilligan
+     author:'Vince Gilligan'
    },
    {
      title:'Terminator 2 Judgment Day',
-     author:James Cameron
+     author:'James Cameron'
    },
    {
      title:'Apocalypto',
-     author:Mel Gibson
+     author:'Mel Gibson'
    },
    {
      title:'Training Day',
-     author:Richard Lindheim
+     author:'Richard Lindheim'
    },
    {
      title:'Gladiator',
-     author:David Franzoni
+     author:'David Franzoni'
    },
    {
      title:'300 Spartans',
-     author:Ugo Liberatore
+     author:'Ugo Liberatore'
    },
    {
      title:'The Shawshank Redemption',
-     author:Stephen King
+     author:'Stephen King'
    },
    {
      title:'The Dark Knight',
-     author:Emma Thomas
+     author:'Emma Thomas'
    },
    {
      title:'Avatar',
-     author:James Cameron
+     author:'James Cameron'
    }
  ];
 
- app.get('/movies',(req,res) =>{
-   res.json(topmovies);
- });
 
+app.use(express.static('public'));
+ app.use(morgan('common'));
  app.get('/', (req, res) => {
    res.send('Top 10 Movies!');
  });
 
+ app.get('/movies',(req,res) =>{
+   res.json(topMovies);
+ });
 
 
-     fs.appendFile('log.txt', 'URL: ' + addr + '\nTimestamp: ' + new Date() + '\n\n', (err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log('Added to log.');
-  }
-});
 
-     response.writeHead(200, { 'Content-Type': 'text/html' });
-     response.write(data);
-     response.end();
+ app.use(bodyParser.urlencoded({
+   extended: true
+ }));
 
-  });
+ app.use(bodyParser.json());
+ app.use(methodOverride());
+
+ app.use((err, req, res, next) => {
+   // logic
+ });
 
 
-});
 app.listen(5000, () =>
+{
   console.log('Movies app coming on port 5000');
-);
+});
