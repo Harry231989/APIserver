@@ -144,7 +144,7 @@ app.get('/moviesdiretor/:director', (req, res) => {
  });
 
  //update infos by users on their own/
- app.put('/updateuser/:username/:password/:email/:date of birth' , (req, res) => {
+ app.put('/updateuser/:username/:password/:email/:dateofbirth' , (req, res) => {
    let user = user.find((movies) => { return user.name === req.params.username });
 
    if (user) {
