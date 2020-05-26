@@ -120,7 +120,7 @@ app.get('/moviesgenre/:genre', (req, res) => {
 });
 
 //Get the data about a single movie,by director
-app.get('/moviesdiretor/:director', (req, res) => {
+app.get('/moviesdirector/:director', (req, res) => {
   res.json(movies.find((movie) =>
 {return movie.director === req.params.director}));
 });
@@ -145,10 +145,10 @@ app.get('/moviesdiretor/:director', (req, res) => {
 
  //update infos by users on their own/
  app.put('/updateuser/:username/:password/:email/:dateofbirth' , (req, res) => {
-   let user = user.find((movies) => { return user.name === req.params.username });
+   let user = user.find((movies) => { return user.update === req.params.update });
 
    if (user) {
-     user.classes[req.params.class] = parseInt(req.params.grade);
+     user.movies[req.params.update] = parseInt(req.params.username.password.email.dateofbirth);
      res.status(201).send('user' + req.params.username + 'has a password' + req.params.dateofbirth + 'and' + req.parmas.email);
   } else {
     res.status(404).send('user ' + req.params.name + 'can not update here.');
