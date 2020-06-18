@@ -1,9 +1,17 @@
+const mongoose = require('mongoose');
+const Models = require('./models.js');
+
+const Movies = Models.Movie;
+const Users = Models.User;
+mongoose.connect('mongodb://localhost:5000/myFlixDB' , {useNewUrlParser: true, useUnifiedTopology: true });
 const express = require('express'),
 morgan = require('morgan');
 const bodyParser = require('body-parser'),
   methodOverride = require('method-override'),
     uuid = require('uuid');
 const app = express();
+
+
 
 
 
@@ -89,7 +97,18 @@ let users = [
     email:'Russiaismyhome@yahoo.com',
     dateofbirth:11/12/1998,
     favorite:'Breaking bad'
+  },
+  {
+    name: 'Rich',
+    password: 'Akobaby1',
+    email: 'Richi149jnr@yahoo.com',
+    dateofbirth:24/11/1984,
+    favorite: 'Training Day'
+  },
+  {
+
   }
+
 
 ];
 // moivies CRUD
@@ -130,18 +149,33 @@ app.get('/moviesdirector/:director', (req, res) => {
 //Get the data about a single movie, by
  // User CRUD
  //Allow new users to register
+ 
  app.post('/adduser', (req, res) => {
-   let newUser = req.body;
+   Users.findOne({ Username: req.body.Username })
+   .then((user)  => {
+     if (user) {
+       return res.status(400).send(req.body.Username + 'already exists');
+     } else {
+       Users
+        .create({
+          Username: req.body.Username,
+          Password: req.body.Password,
+          Email: req.body.Email,
+          Birthday: req.body.Birthday
+        })
+        .then((user) =>{res.status(201).json(user) })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send('Error: ' + error);
+      })
+     }
+   })
+   .catch((error)  =>  {
+     console.error(error);
+     res.status(500).send('Error: ' + error);
+   });
 
-   if (!newUser.name) {
-     const message = 'feel free to register';
-     res.status(400).send(message);
-   } else {
-     newUser.id = uuid.v4();
-     movies.push(newUser);
-     res.status(201).send(newUser);
-   }
- });
+
 
  //update infos by users on their own/
  app.put('/updateuser/:username/:password/:email/:dateofbirth' , (req, res) => {
