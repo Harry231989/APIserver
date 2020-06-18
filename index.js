@@ -149,32 +149,27 @@ app.get('/moviesdirector/:director', (req, res) => {
 //Get the data about a single movie, by
  // User CRUD
  //Allow new users to register
- 
- app.post('/adduser', (req, res) => {
-   Users.findOne({ Username: req.body.Username })
-   .then((user)  => {
-     if (user) {
-       return res.status(400).send(req.body.Username + 'already exists');
-     } else {
-       Users
-        .create({
-          Username: req.body.Username,
-          Password: req.body.Password,
-          Email: req.body.Email,
-          Birthday: req.body.Birthday
-        })
-        .then((user) =>{res.status(201).json(user) })
-      .catch((error) => {
-        console.error(error);
-        res.status(500).send('Error: ' + error);
-      })
-     }
-   })
-   .catch((error)  =>  {
-     console.error(error);
-     res.status(500).send('Error: ' + error);
-   });
+ app.post('/users', (req, res) => {});
 
+ //Add a user
+ /* We'll expect JSON in this Format
+ {
+   ID: Integer,
+   Username: String,
+   Password: String,
+   Email: String,
+   Birthday: Date
+ }*/
+    let newUser = req.body;
+
+   if (!newUser.name) {
+     const message = 'feel free to register';
+     res.status(400).send(message);
+   } else {
+     newUser.id = uuid.v4();
+     movies.push(newUser);
+     res.status(201).send(newUser);
+   }
 
 
  //update infos by users on their own/
