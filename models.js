@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/myFlixDB' , {useNewUrlParser: true, useUnifiedTopology: true });
 
 let movieSchema = mongoose.Schema({
    Title: {type: String, required: true},
@@ -24,8 +25,8 @@ let userSchema = mongoose.Schema({
    favoriteMovies: [{type: mongoose.Schema.Types.ObjectId, ref:'Movie'}]
 });
 
-let Movie = mongoose.model('Movie', movieSchema);
-let User = mongoose.model('User', userSchema);
+let Movie = mongoose.model('movies', movieSchema);
+let User = mongoose.model('users', userSchema);
 
 module.exports.Movie = Movie;
 module.exports.User = User;

@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
+
 const Models = require('./models.js');
 
 const Movies = Models.Movie;
 const Users = Models.User;
-mongoose.connect('mongodb://localhost:5000/myFlixDB' , {useNewUrlParser: true, useUnifiedTopology: true });
+
 const express = require('express'),
 morgan = require('morgan');
 const bodyParser = require('body-parser'),
@@ -12,8 +12,9 @@ const uuid = require('uuid');
 const app = express();
 
 
-
-let movies = [
+/*
+const movies =
+ [
 {
   id:1,
   name: 'The Lord of the Rings',
@@ -107,6 +108,7 @@ let users = [
 
 
 ];
+*/
 // moivies CRUD
 app.use(express.static('public'));
  app.use(morgan('common'));
@@ -115,29 +117,38 @@ app.use(express.static('public'));
  });
 
   //Get the list of data about All Movies
- app.get('/movies',(req,res) =>{
-   res.json(movies);
+
+
+ app.get('/movies' , (req, res) => {
+  Movies.find()
+   .then((movies) => {
+     res.status(201).json(movies);
+   })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
  });
 
 
  // Gets the data about a single movie, by name
 
- app.get('/movies/:name', (req, res) => {
-   res.json(movies.find((movie) =>
-   {return movie.name === req.params.name}));
+ app.get('/movies/:title', (req, res) => {
+   res.json(Movies.find((movie) =>
+   {return movie.Title === req.params.title}));
  });
 
 //Get the data about a single movie, by genre
 
 app.get('/moviesgenre/:genre', (req, res) => {
-  res.json(movies.find((movie) =>
-  {return movie.genre === req.params.genre  }));
+  res.json(Movies.find((movie) =>
+  {return movie.Genre === req.params.genre  }));
 });
 
 //Get the data about a single movie,by director
 app.get('/moviesdirector/:director', (req, res) => {
-  res.json(movies.find((movie) =>
-{return movie.director === req.params.director}));
+  res.json(Movies.find((movie) =>
+{return movie.Director === req.params.director}));
 });
 
 
@@ -171,7 +182,30 @@ app.get('/moviesdirector/:director', (req, res) => {
       res.status(500).send('Error: ' + error);
     });
 });
- app.post('/users', (req, res) => {});
+
+//Get all users
+app.get('/users' , (req, res) => {
+  Users.find()
+  .then((users) => {
+    res.status(201).json(users);
+  })
+   .catch((err) => {
+     console.error(err);
+     res.status(500).send('Error: ' + err);
+   });
+});
+
+//Get a user by Username
+app.get('/users/:Username', (req,res) => {
+  Users.findOne({ Username: req.params.Username })
+  .then((user) => {
+    res.json(user);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
+});
 
  //Add a user
  /* We'll expect JSON in this Format
@@ -182,6 +216,8 @@ app.get('/moviesdirector/:director', (req, res) => {
    Email: String,
    Birthday: Date
  }*/
+ /*
+  app.post('/users', (req, res) => {
     let newUser = req.body;
 
    if (!newUser.name) {
@@ -192,8 +228,8 @@ app.get('/moviesdirector/:director', (req, res) => {
      movies.push(newUser);
      res.status(201).send(newUser);
    }
-
-
+});
+*/
  //update infos by users on their own/
  app.put('/updateuser/:username/:password/:email/:dateofbirth' , (req, res) => {
    let user = user.find((movies) => { return user.update === req.params.update });
