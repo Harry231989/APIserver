@@ -6,11 +6,12 @@ const Users = Models.User;
 
 const express = require('express'),
 morgan = require('morgan');
-const bodyParser = require('body-parser'),
+const bodyParser = require('body-parser')
+
   methodOverride = require('method-override');
 const uuid = require('uuid');
 const app = express();
-
+app.use(bodyParser.json);
 let auth = require('./auth')(app);
 
 const passport = require('passport');
