@@ -1,9 +1,10 @@
+const passport = require('passport');
+require('./passport');
 
 const Models = require('./models.js');
 
 const Movies = Models.Movie;
 const Users = Models.User;
-
 const express = require('express'),
 morgan = require('morgan');
 const bodyParser = require('body-parser')
@@ -11,11 +12,10 @@ const bodyParser = require('body-parser')
   methodOverride = require('method-override');
 const uuid = require('uuid');
 const app = express();
-app.use(bodyParser.json);
+
+app.use(bodyParser.json());
 let auth = require('./auth')(app);
 
-const passport = require('passport');
-require('./passport');
 
 
 /*
@@ -125,16 +125,17 @@ app.use(express.static('public'));
   //Get the list of data about All Movies
 
 
- app.get('/movies' , passport.authenticate('jwt', {session: false}), (req, res) => {
+
+ app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
-   .then((movies) => {
-     res.status(201).json(movies);
-   })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
+    .then((movies) => {
+      res.status(201).json(movies);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
     });
- });
+});
 
 
  // Gets the data about a single movie, by name
