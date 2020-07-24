@@ -1,8 +1,6 @@
 const passport = require('passport');
 require('./passport');
 
-const cors = require('cors');
-app.use(cors());
 
 const Models = require('./models.js');
 
@@ -18,6 +16,9 @@ const app = express();
 
 app.use(bodyParser.json());
 let auth = require('./auth')(app);
+
+const cors = require('cors');
+app.use(cors());
 
 /*rest of code for added cors here*/
 let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
