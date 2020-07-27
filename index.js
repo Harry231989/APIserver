@@ -17,6 +17,8 @@ const app = express();
 app.use(bodyParser.json());
 let auth = require('./auth')(app);
 
+const { check, validationResult } = require('express-validator');
+
 const cors = require('cors');
 app.use(cors());
 
@@ -180,7 +182,26 @@ app.get('/moviesdirector/:director', (req, res) => {
  // User CRUD
  //Allow new users to register
 
- app.post('/users', (req, res) => {
+ app.post('/users',
+   // Validation logic here for request
+   //you can either use a chain of methods like .not().isEmpty()
+   //which means "opposite of isEmpty" in plain english "is not empty"
+   //or use .isLength({min: 5}) which means
+   //minimum value of 5 character are only allowed
+   [
+     check('Username', 'Username is required').isLength({min: 5}),
+     check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+     check('Password', 'Password is required').not().isEmpty(),
+     check('Email', 'Email does not appear to be valid').isEmail()
+   ],(req, res) => {
+
+     // check the Validation object for errors
+     let errors = validationResult(req);
+
+     if (!errors.isEmpty()) {
+       return res.status(422).json({ errors: errors.array() });
+     }
+
    let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
     .then((user) => {
@@ -337,8 +358,7 @@ app.post('/adduserfavoritemovie/:favorite/movies' , ( req, res) => {
    // logic
  });
 
-
-app.listen(5000, () =>
-{
-  console.log('Movies app coming on port 5000');
+const port = process.env.PORT || 5000;
+app.listen(5000, '0.0.0.0', () => {
+  console.log('Listening on port 5000');
 });
