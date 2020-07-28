@@ -35,6 +35,8 @@ let movieSchema = mongoose.Schema({
    Featured: Boolean
 });
 
+
+/*
 let userSchema = mongoose.Schema({
    Username: {type: String, required: true},
    Password: {type: String, required: true},
@@ -43,6 +45,7 @@ let userSchema = mongoose.Schema({
    favoriteMovies: [{type: mongoose.Schema.Types.ObjectId, ref:'Movie'}]
 });
 
+*/
 let Movie = mongoose.model('movies', movieSchema);
 let User = mongoose.model('users', userSchema);
 
