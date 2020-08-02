@@ -359,7 +359,7 @@ app.post('/adduserfavoritemovie/:favorite/movies' , ( req, res) => {
    // logic
  });
 
-const port = process.env.PORT || 80;
-app.listen(port, '0.0.0.0', () => {
+const port = process.env.CONNECTION_URI;
+app.listen(CONNECTION_URI, '0.0.0.0', () => {
   console.log('Listening on port 80');
 });
