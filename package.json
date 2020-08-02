@@ -24,9 +24,7 @@
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
-    "uuid": "^8.1.0"
-  },
-  "devDependencies": {
+    "uuid": "^8.1.0",
     "eslint": "^7.0.0"
   }
 }
