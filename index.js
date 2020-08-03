@@ -2,12 +2,13 @@ const passport = require('passport');
 require('./passport');
 
 
-
 const Models = require('./models.js');
 
 const Movies = Models.Movie;
 const Users = Models.User;
-const express = require('express'),
+const express = require('express');
+const importData = require("./movies.json");
+const port = process.env.PORT || 5000;
 morgan = require('morgan');
 const bodyParser = require('body-parser')
 
@@ -156,6 +157,9 @@ app.use(express.static('public'));
     });
 });
 
+app.get("/movies", (req, res) => {
+  res.send(importData)
+});
 
  // Gets the data about a single movie, by name
 
@@ -357,9 +361,9 @@ app.post('/adduserfavoritemovie/:favorite/movies' , ( req, res) => {
    // logic
  });
 
-const port = process.env.PORT || 5000;
-app.listen(port, '0.0.0.0', () => {
-  console.log('Listening on port 5000');
+
+app.listen(port, () => {
+  console.log('Example app is listening on port http://localhost:${port}');
 });
 
 
