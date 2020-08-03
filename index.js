@@ -1,8 +1,7 @@
 const passport = require('passport');
 require('./passport');
 
-const mongoose = require('mongoose');
-mongoose.connect( process.env.CONNECTION_URI, {useNewUrlParser: true, useUnifiedTopology: true });
+
 
 const Models = require('./models.js');
 
