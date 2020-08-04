@@ -2,7 +2,8 @@
 //const mongoose = require('mongoose');
 //mongoose.connect('mongodb://localhost:27017/myFlixDB' , {useNewUrlParser: true, useUnifiedTopology: true });
 const mongoose = require('mongoose');
-mongoose.connect( 'mongodb+srv://newchichi_23:peoplehatebutgodloves@myflixdb.bourd.mongodb.net/myflixdb?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true });
+const conString = process.env.dbconnect;
+mongoose.connect(conString,  {useNewUrlParser: true, useUnifiedTopology: true });
 
 const bcrypt = require('bcrypt');
 
