@@ -7,7 +7,7 @@ const Models = require('./models.js');
 const Movies = Models.Movie;
 const Users = Models.User;
 const express = require('express');
-const importData = require("./movies.json");
+
 const port = process.env.PORT || 5000;
 morgan = require('morgan');
 const bodyParser = require('body-parser')
