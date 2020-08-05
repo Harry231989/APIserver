@@ -156,9 +156,6 @@ app.use(express.static('public'));
     });
 });
 
-app.get("/movies", (req, res) => {
-  res.send(importData)
-});
 
  // Gets the data about a single movie, by name
 

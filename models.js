@@ -2,8 +2,10 @@
 //const mongoose = require('mongoose');
 //mongoose.connect('mongodb://localhost:27017/myFlixDB' , {useNewUrlParser: true, useUnifiedTopology: true });
 const mongoose = require('mongoose');
-const conString = process.env.dbconnect || 'mongodb://localhost:27017/myFlixDB';
-mongoose.connect(conString,  {useNewUrlParser: true, useUnifiedTopology: true });
+//const conString = process.env.dbconnect || 'mongodb://localhost:27017/myFlixDB';
+//mongoose.connect('mongodb://localhost:27017/myFlixDB',  {useNewUrlParser: true, useUnifiedTopology: true });
+
+mongoose.connect('mongodb+srv://newchichi_23:peoplehatebutgodloves@myflixdb.bourd.mongodb.net/myflixDB?retryWrites=true&w=majority',  {useNewUrlParser: true, useUnifiedTopology: true });
 
 const bcrypt = require('bcrypt');
 
@@ -12,7 +14,7 @@ let userSchema = mongoose.Schema({
   Password: {type: String, required: true},
   Email: {type: String, required: true},
   Birthday: Date,
-  favoriteMovies:  [{type: mongoose.Schema.Types.ObjectId, ref: 'Movie'}]
+  favoriteMovies:  [{type: mongoose.Schema.Types.ObjectId, ref: 'movies'}]
 });
 
 userSchema.statics.hashPassword = (password) => {
