@@ -15,6 +15,15 @@ const bodyParser = require('body-parser')
 const uuid = require('uuid');
 const app = express();
 
+
+ app.use(bodyParser.urlencoded({
+   extended: true
+ }));
+
+ app.use(bodyParser.json());
+ app.use(methodOverride());
+
+
 app.use(bodyParser.json());
 let auth = require('./auth')(app);
 
@@ -37,103 +46,7 @@ app.use(cors({
   }
 }));
 
-/*
-const movies =
- [
-{
-  id:1,
-  name: 'The Lord of the Rings',
-  genre: 'Action',
-  image:'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT9J7XACn3tlD6v4UXRMvT2wJN8FGCCPeh8U3RkZ6__tR4wGhSo',
-  actors:'Orlando Bloom, Elijah Wood, Viggo Mortensen, Ian Mckellen',
-  director: {
-    author:'J Tolkien',
-    dateofbirth:6/03/1957
 
-  }
-},
-{
-  id: 2,
-  name: 'Breaking Bad',
-  genre: 'Drama',
-  image: 'https://www.google.com/search?tbm=isch&q=Breaking+Bad#imgrc=qIJkHEowSA_PoM&imgdii=wlMFAFNtj8ca-M',
-  actors:'Bryan Cranston ,Aaron Paul ,Skyler',
-  director: {
-    author: 'Vince Gilligan',
-    dateofbirth:04/05/1963
-  }
-},
-{
-  id: 3,
-  name: 'Terminator 2 Judgment Day',
-  genre: 'Action',
-  image: 'https://www.google.de/search?q=terminator+2+images&safe=strict&sxsrf=ALeKk005KcfNsceBeymjcAapcsBxLwnREw:1590189062320&tbm=isch&source',
-  actors: 'Arnold Schwarzenegger,Robert Patr,Edward Furlong,Linda Hamilton',
-  director: {
-    author: 'James Cameron',
-    dateofbirth:03/02/1974
-  }
-},
-{
-  id: 4,
-  name:'Apocalypto',
-  genre: 'Adventure',
-  image: 'https://www.google.com/search?tbm=isch&q=Apocalypto#imgrc=0XTUWsG91z0SrM',
-  actors: 'Rudy Youngblood,Dalla Hernandez,Gerardo Taracena,Morris Birdyellowh',
-  director: {
-    author:'Mel Gibson',
-    dateofbirth:09/05/1963
-  }
-},
-{
-  id: 5,
-  name:'Training Day',
-  genre: 'Drama',
-  image: 'https://www.google.com/search?tbm=isch&q=Training+Day',
-  actors:'Denzel Washington,Eva Mendes,Ethan Hawke,Cliff Curtis',
-  director: {
-    author:'Richard Lindheim',
-    dateofbirth:11/12/1971
-  }
-}
-];
-
-let users = [
-  {
-    name: 'Jonh',
-    password: 'jesus111bosom',
-    email:'johnteyyy@yahoo.com',
-    dateofbirth:07/06/1992,
-    favorite: 'Training Day'
-  },
-  {
-    name: 'Ama Bayor',
-    password: 'lovemyboyf23',
-    email: 'Bayordeserious@yahoo.com',
-    dateofbirth:04/10/1989,
-    favorite: 'The Lord of the Rings'
-  },
-  {
-    name:'Petre',
-    password: 'fusballistmein1',
-    email:'Russiaismyhome@yahoo.com',
-    dateofbirth:11/12/1998,
-    favorite:'Breaking bad'
-  },
-  {
-    name: 'Rich',
-    password: 'Akobaby1',
-    email: 'Richi149jnr@yahoo.com',
-    dateofbirth:24/11/1984,
-    favorite: 'Training Day'
-  },
-  {
-
-  }
-
-
-];
-*/
 // moivies CRUD
 app.use(express.static('public'));
  app.use(morgan('common'));
@@ -143,9 +56,9 @@ app.use(express.static('public'));
 
   //Get the list of data about All Movies
 
+ //passport.authenticate('jwt', { session: false }),
 
-
- app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
+ app.get('/movies', (req, res) => {
   Movies.find()
     .then((movies) => {
       res.status(201).json(movies);
@@ -159,29 +72,45 @@ app.use(express.static('public'));
 
  // Gets the data about a single movie, by name
 
- app.get('/movies/:title', (req, res) => {
-   res.json(Movies.find((movie) =>
-   {return movie.Title === req.params.title}));
+ app.get('/movies/title/:title', (req, res) => {
+   Movies.find({'Title': req.params.title})
+     .then((movies) => {
+       res.status(201).json(movies);
+     })
+     .catch((error) => {
+       console.error(error);
+       res.status(500).send('Error: ' + error);
+     });
  });
 
 //Get the data about a single movie, by genre
 
-app.get('/moviesgenre/:genre', (req, res) => {
-  res.json(Movies.find((movie) =>
-  {return movie.Genre === req.params.genre  }));
+app.get('/movies/genre/:genre', (req, res) => {
+  Movies.find({'Genre':req.params.director})
+    .then((movies) => {
+      res.status(201).json(movies);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
+    });
 });
 
 //Get the data about a single movie,by director
-app.get('/moviesdirector/:director', (req, res) => {
-  res.json(Movies.find((movie) =>
-{return movie.Director === req.params.director}));
+app.get('/movies/director/:director', (req, res) => {
+Movies.find({'Director.Name':req.params.director})
+  .then((movies) => {
+    res.status(201).json(movies);
+  })
+  .catch((error) => {
+    console.error(error);
+    res.status(500).send('Error: ' + error);
+  });
 });
 
 
 
-//Get the data about a single movie, by
- // User CRUD
- //Allow new users to register
+
 
  app.post('/users',
    // Validation logic here for request
@@ -289,29 +218,7 @@ app.delete('/users/:Username', (req, res) => {
     });
 });
 
- //Add a user
- /* We'll expect JSON in this Format
- {
-   ID: Integer,
-   Username: String,
-   Password: String,
-   Email: String,
-   Birthday: Date
- }*/
- /*
-  app.post('/users', (req, res) => {
-    let newUser = req.body;
 
-   if (!newUser.name) {
-     const message = 'feel free to register';
-     res.status(400).send(message);
-   } else {
-     newUser.id = uuid.v4();
-     movies.push(newUser);
-     res.status(201).send(newUser);
-   }
-});
-*/
  //update infos by users on their own/
  app.put('/updateuser/:username/:password/:email/:dateofbirth' , (req, res) => {
    let user = user.find((movies) => { return user.update === req.params.update });
@@ -346,20 +253,12 @@ app.post('/adduserfavoritemovie/:favorite/movies' , ( req, res) => {
   }
 });
 
- app.use(bodyParser.urlencoded({
-   extended: true
- }));
-
- app.use(bodyParser.json());
- app.use(methodOverride());
-
  app.use((err, req, res, next) => {
    // logic
  });
 
-
 app.listen(port, () => {
-  console.log('Example app is listening on port http://localhost:${port}');
+  console.log(`Example app is listening on port http://localhost:${port}`);
 });
 
 
