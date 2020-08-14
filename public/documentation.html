@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+   <title>API</title>
+    </head>
+ <body>
+   <p> My first Node Server in Index files </p
+     <h4> movies </h4>
+     <p> This API movie contains id's , names , genre , image , actors, and director all these can be found below!  </p>
+
+     <ul>
+       <li>Endpoint:  localhost:5000/movies/</li>
+         <li>Method : GET</li>
+           <li>Query Parameter: null </li>
+                 <li>Format of Data: json ,
+                  <code> {
+
+                       id:1,
+                       name: 'The Lord of the Rings',
+                       genre: 'Action',
+                       image:'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT9J7XACn3tlD6v4UXRMvT2wJN8FGCCPeh8U3RkZ6__tR4wGhSo',
+                       actors:'Orlando Bloom, Elijah Wood, Viggo Mortensen, Ian Mckellen',
+                       director: {
+                         author:'J Tolkien',
+                         dateofbirth:6/03/1957
+
+                       }
+                     },
+
+                     id: 2,
+                     name: 'Breaking Bad',
+                     genre: 'Drama',
+                     image: 'https://www.google.com/search?tbm=isch&q=Breaking+Bad#imgrc=qIJkHEowSA_PoM&imgdii=wlMFAFNtj8ca-M',
+                     actors:'Bryan Cranston ,Aaron Paul ,Skyler',
+                     director: {
+                       author: 'Vince Gilligan',
+                       dateofbirth:04/05/1963
+                     }
+                   },
+                   {
+                     id: 3,
+                     name: 'Terminator 2 Judgment Day',
+                     genre: 'Action',
+                     image: 'https://www.google.de/search?q=terminator+2+images&safe=strict&sxsrf=ALeKk005KcfNsceBeymjcAapcsBxLwnREw:1590189062320&tbm=isch&source',
+                     actors: 'Arnold Schwarzenegger,Robert Patr,Edward Furlong,Linda Hamilton',
+                     director: {
+                       author: 'James Cameron',
+                       dateofbirth:03/02/1974
+                     }
+                   },
+                <code>
+
+
+                 </li>
+                 <li>format of respond data: json</li>
+     </ul>
+
+
+     <ul>
+       <li>Endpoint:  /movies/:name</li>
+         <li>Method : GET</li>
+           <li>Query Parameter:name </li>
+                 <li>Format of Data: json ,
+                  {
+                    name:'The Lord of the Rings, Breaking bad , Training Day, Terminator 2 Judgment Day, Apocalypto'
+
+                 </li>
+                 <li>format of respond data: json</li>
+     </ul>
+
+     <ul>
+       <li>Endpoint:  /moviesgenre/:genre</li>
+         <li>Method : GET</li>
+           <li>Query Parameter:genre </li>
+                 <li>Format of Data: json ,
+                  {
+                    name:'Adventure,Action,Drama'
+
+                 </li>
+                 <li>format of respond data: json</li>
+     </ul>
+
+     <ul>
+       <li>Endpoint:  /moviesdiretor/:director</li>
+         <li>Method : GET</li>
+           <li>Query Parameter:director </li>
+                 <li>Format of Data: json ,
+                  {
+
+                      author:'J Tolkien',
+                      dateofbirth:6/03/1957
+
+
+                  }
+
+                 </li>
+                 <li>format of respond data: json</li>
+     </ul>
+
+<p> API helps users to register, change and delete their profile anytime they want!</p>
+
+
+     <ul>
+       <li>Endpoint:  '/adduser'</li>
+         <li>Method : post</li>
+           <li>Query Parameter:adduser </li>
+                 <li>Format of Data: json ,
+                   {
+                     username: 'Ama Bayor',
+                     password: 'lovemyboyf23',
+                     email: 'Bayordeserious@yahoo.com',
+                     dateofbirth:04/10/1989,
+                     favorite: 'The Lord of the Rings'
+                   },
+
+                 </li>
+                 <li>format of respond data: json</li>
+     </ul>
+     <ul>
+       <li>Endpoint:  '/updateuser/:username/:password/:email/:dateofbirth'</li>
+         <li>Method : Put</li>
+           <li>Query Parameter:username/:password/:email/:date of birth </li>
+                 <li>Format of Data: json ,
+
+
+                    {
+                      username: 'Ama Bayor',
+                      password: 'lovemyboyf23',
+                      email: 'Bayordeserious@yahoo.com',
+                      dateofbirth:04/10/1989,
+                      favorite: 'The Lord of the Rings'
+                    },
+
+
+
+
+                 </li>
+                 <li>format of respond data: json</li>
+     </ul>
+     <ul>
+       <li>Endpoint:  '/adduserfavoritemovie/:favorite/movies'</li>
+         <li>Method : Post</li>
+           <li>Query Parameter::adduserfavoritemovie/:favorite/movies </li>
+                 <li>Format of Data: json ,
+
+
+                    {
+
+                      favorite: 'The Lord of the Rings'
+                    },
+
+
+
+
+                 </li>
+                 <li>format of respond data: json</li>
+     </ul>
+
+ </body>
+
+</html>
