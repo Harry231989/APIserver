@@ -31,7 +31,7 @@ app.use(cors());
 
 
 /*rest of code for added cors here*/
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+let allowedOrigins = ['*'];
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -56,7 +56,7 @@ app.get('/', (req, res) => {
 
 
 
-app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.get('/movies', (req, res) => {
   Movies.find()
     .then((movies) => {
       res.status(201).json(movies);
