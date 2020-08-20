@@ -31,7 +31,7 @@ app.use(cors());
 
 
 /*rest of code for added cors here*/
-let allowedOrigins = ['*'];
+let allowedOrigins = ['http://localhost:1234'];
 
 app.use(cors({
   origin: (origin, callback) => {
