@@ -31,8 +31,14 @@ app.use(cors());
 
 
 /*rest of code for added cors here*/
-let allowedOrigins = ['http://localhost:1234', 'http://localhost:53311', 'http://localhost:52280', 'http://localhost:65292'];
+let allowedOrigins = ['http://localhost:1234', 'http://localhost:53311', 'http://localhost:52280', 'http://localhost:63217'];
 
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+/*
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin) return callback(null, true);
@@ -42,7 +48,7 @@ app.use(cors({
     }
     return callback(null, true);
   }
-}));
+})); */
 
 
 // moivies CRUD
