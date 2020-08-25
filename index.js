@@ -30,25 +30,19 @@ const cors = require('cors');
 app.use(cors());
 
 
-/*rest of code for added cors here*/
-let allowedOrigins = ['http://localhost:1234', 'http://localhost:53311', 'http://localhost:52280', 'http://localhost:63217'];
-
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-/*
+/* rest of code goes here*/
+var allowedOrigins = ['http://localhost:1234', '*'];
+// CORS implementation
 app.use(cors({
-  origin: (origin, callback) => {
+  origin: function (origin, callback) {
     if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {  // If a specific origin isn't found on the list of allowed origins
-      let message = 'The CORS policy for this application doesnt allow access from origin ' + origin;
+    if (allowedOrigins.indexOf(origin) === -1) { // If a specific origin isn’t found on the list of allowed origins
+      var message = 'The CORS policy for this application doesn’t allow access from origin ' + origin;
       return callback(new Error(message), false);
     }
     return callback(null, true);
   }
-})); */
+}));
 
 
 // moivies CRUD
