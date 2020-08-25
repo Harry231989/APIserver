@@ -1,6 +1,3 @@
-const passport = require('passport');
-require('./passport');
-
 
 const Models = require('./models.js');
 
@@ -22,7 +19,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 app.use(methodOverride());
-let auth = require('./auth')(app);
+
 
 const { check, validationResult } = require('express-validator');
 
@@ -35,16 +32,20 @@ var allowedOrigins = ['http://localhost:1234', '*'];
 // CORS implementation
 app.use(cors({
   origin: function (origin, callback) {
-    // if (!origin) return callback(null, true);
+    if (!origin) return callback(null, true);
     if (allowedOrigins.indexOf(origin) === -1) { // If a specific origin isn’t found on the list of allowed origins
 
       var message = 'The CORS policy for this application doesn’t allow access from origin ' + origin;
-      return callback(new Error(message), false);
+      return callback(new Error(message), true);
     }
     return callback(null, true);
   }
 }));
 
+let auth = require('./auth')(app);
+
+const passport = require('passport');
+require('./passport');
 
 // moivies CRUD
 app.use(express.static('public'));
