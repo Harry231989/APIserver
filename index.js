@@ -1,4 +1,4 @@
-
+const path = require('path');
 const Models = require('./models.js');
 
 const Movies = Models.Movie;
@@ -49,9 +49,14 @@ require('./passport');
 
 // moivies CRUD
 app.use(express.static('public'));
+app.use("/client", express.static(path.join(_dirname, "client", "dist")));
 app.use(morgan('common'));
 app.get('/', (req, res) => {
   res.send('Top 10 Movies!');
+});
+
+app.get("/client/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
 });
 
 //Get the list of data about All Movies
