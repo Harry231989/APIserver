@@ -1,4 +1,6 @@
+/*
 const path = require('path');
+*/
 const Models = require('./models.js');
 
 const Movies = Models.Movie;
